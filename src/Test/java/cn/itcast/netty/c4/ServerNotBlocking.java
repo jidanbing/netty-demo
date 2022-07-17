@@ -10,10 +10,10 @@ import java.nio.channels.SocketChannel;
 import java.util.ArrayList;
 import java.util.List;
 
-import static cn.itcast.netty.c1.ByteBufferUtil.debugAll;
+import static cn.itcast.netty.c1.ByteBufferUtil.debugRead;
 
 @Slf4j
-public class Server {
+public class ServerNotBlocking {
     public static void main(String[] args) throws IOException {
         //使用nio 来理解阻塞模式       单线程
 
@@ -22,6 +22,7 @@ public class Server {
 
         //1.创建了服务器
         ServerSocketChannel ssc = ServerSocketChannel.open();
+        ssc.configureBlocking(false);   //      --非阻塞模式
 
         //2.绑定监听端口
         ssc.bind(new InetSocketAddress(8080));
@@ -31,20 +32,25 @@ public class Server {
 
         while (true){
             //4.accept 建立与客户端的通信
-            log.info("cennecting...");
-            SocketChannel sc = ssc.accept(); //阻塞方法,线程停止运行
-            log.info("cennected...{}",sc);
-            channels.add(sc);
+            //log.info("cennecting...");
+            SocketChannel sc = ssc.accept(); //非阻塞方法,线程还会运行 ，如果没有建立连接，accept返回null
+            if(sc!=null){
+                log.info("cennected...{}",sc);
+                sc.configureBlocking(false);    //SocketChannel非阻塞
+                channels.add(sc);
+            }
 
             for (SocketChannel channel:channels) {
 
                 //5.接收客户端发送的信息
-                log.info("before read...{}",channel);
-                channel.read(buffer);  //阻塞方法，线程停止运行
-                buffer.flip();
-                debugAll(buffer);
-                buffer.clear();
-                log.info("after read...{}",channel);
+                //log.info("before read...{}",channel);
+                int read = channel.read(buffer);//非阻塞方法，线程还会运行   如果没有读到数据，read返回0
+                if (read > 0) {
+                    buffer.flip();
+                    debugRead(buffer);
+                    buffer.clear();
+                    log.debug("after read...{}", channel);
+                }
             }
         }
 
