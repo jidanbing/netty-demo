@@ -1,4 +1,4 @@
-package cn.itcast.netty.c1;
+package cn.itcast.nio.c1;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -7,7 +7,7 @@ import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 
-import static cn.itcast.netty.c1.ByteBufferUtil.debugAll;
+import static cn.itcast.nio.c1.ByteBufferUtil.debugAll;
 
 @Slf4j
 public class TestScatteringReads {

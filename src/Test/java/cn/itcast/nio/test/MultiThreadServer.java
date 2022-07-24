@@ -1,4 +1,4 @@
-package cn.itcast.netty.test;
+package cn.itcast.nio.test;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -7,7 +7,7 @@ import java.nio.channels.Selector;
 import java.nio.channels.SocketChannel;
 import java.util.Iterator;
 
-import static cn.itcast.netty.c1.ByteBufferUtil.debugAll;
+import static cn.itcast.nio.c1.ByteBufferUtil.debugAll;
 
 public class MultiThreadServer {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package cn.itcast.netty.file;
+package cn.itcast.nio.file;
 
 import java.io.IOException;
 import java.nio.file.Files;

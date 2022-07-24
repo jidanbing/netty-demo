@@ -1,4 +1,4 @@
-package cn.itcast.netty.test;
+package cn.itcast.nio.test;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -14,7 +14,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static cn.itcast.netty.c1.ByteBufferUtil.debugAll;
+import static cn.itcast.nio.c1.ByteBufferUtil.debugAll;
 
 @Slf4j
 public class MultiThreadServer2 {
